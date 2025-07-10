@@ -1,0 +1,22 @@
+{
+    "name": "abdallah/maxitsa",
+    "description": "Application pour transaction",
+    "autoload": {
+        "psr-4": {
+            "app\\core\\" : "app/core",
+            "app\\core\\abstract\\" : "app/core/abstract",
+            "src\\controller\\" : "src/controller",
+            "src\\entity\\" : "src/entity",
+            "src\\enums\\" : "src/enums"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abdoulaye Ly",
+            "email": "abdoulayely148@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
