@@ -62,6 +62,7 @@
                         </label>
                         <input 
                             type="tel" 
+                            name="telephone"
                             placeholder="entrez votre numéro"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                         />
@@ -74,6 +75,7 @@
                         </label>
                         <input 
                             type="password" 
+                            name="password"
                             placeholder="entrez votre mot de passe"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                         />

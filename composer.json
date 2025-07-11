@@ -3,10 +3,14 @@
     "description": "Application pour transaction",
     "autoload": {
         "psr-4": {
+            "app\\config\\" : "app/config",
             "app\\core\\" : "app/core",
             "app\\core\\abstract\\" : "app/core/abstract",
+            "app\\core\\middlewares\\" : "app/core/middlewares",
             "src\\controller\\" : "src/controller",
             "src\\entity\\" : "src/entity",
+            "src\\repository\\" : "src/repository",
+            "src\\service\\" : "src/service",
             "src\\enums\\" : "src/enums"
         }
     },

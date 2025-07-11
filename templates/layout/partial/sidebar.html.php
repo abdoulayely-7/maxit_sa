@@ -45,10 +45,13 @@
 
   <!-- Bas : Déconnexion -->
   <div class="px-6">
-    <button
+    <form action="<?php WEB_URL ?>/logout" method="post">
+      <button
+      type="submit"
       class="flex items-center space-x-3 w-full bg-orange-500 text-black py-3 px-4 rounded-md hover:bg-orange-600 transition">
       <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
       <span>Déconnexion</span>
     </button>
+    </form>
   </div>
 </aside>

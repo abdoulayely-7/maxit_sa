@@ -15,14 +15,18 @@ class ComposerStaticInit1bfab53328860ea0722facf4b1b4b58b
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
+            'src\\service\\' => 12,
+            'src\\repository\\' => 15,
             'src\\enums\\' => 10,
             'src\\entity\\' => 11,
             'src\\controller\\' => 15,
         ),
         'a' => 
         array (
+            'app\\core\\middlewares\\' => 21,
             'app\\core\\abstract\\' => 18,
             'app\\core\\' => 9,
+            'app\\config\\' => 11,
         ),
         'S' => 
         array (
@@ -45,6 +49,14 @@ class ComposerStaticInit1bfab53328860ea0722facf4b1b4b58b
     );
 
     public static $prefixDirsPsr4 = array (
+        'src\\service\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/service',
+        ),
+        'src\\repository\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/repository',
+        ),
         'src\\enums\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/enums',
@@ -57,6 +69,10 @@ class ComposerStaticInit1bfab53328860ea0722facf4b1b4b58b
         array (
             0 => __DIR__ . '/../..' . '/src/controller',
         ),
+        'app\\core\\middlewares\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/core/middlewares',
+        ),
         'app\\core\\abstract\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/core/abstract',
@@ -64,6 +80,10 @@ class ComposerStaticInit1bfab53328860ea0722facf4b1b4b58b
         'app\\core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/core',
+        ),
+        'app\\config\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/config',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (

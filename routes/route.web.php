@@ -7,6 +7,7 @@ $tabs = [
   '/' => ['controller' => SecurityController::class, 'action' => 'create'],
   '/signin' => ['controller' => SecurityController::class, 'action' => 'login'],
   '/signup' => ['controller' => SecurityController::class, 'action' => 'formSignUp'],
-  '/solde' => ['controller' => CompteController::class, 'action' => 'create'],
+  '/logout' => ['controller' => SecurityController::class, 'action' => 'logout'],
+  '/solde' => ['controller' => CompteController::class, 'action' => 'create','middleware' => 'auth'],
 
 ];

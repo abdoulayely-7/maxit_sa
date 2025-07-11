@@ -145,7 +145,7 @@ class User extends AbstractEntity
       'id' => $this->id,
       'nom' => $this->nom,
       'prenom' => $this->prenom,
-      'login' => $this->telephone,
+      'telephone' => $this->telephone,
       'password' => $this->password,
       'cni' => $this->cni,
       'photoRecto' => $this->photoRecto,
@@ -156,7 +156,7 @@ class User extends AbstractEntity
     ];
   }
 
-  public static function toObject(array $data): self
+  public static function toObject(array $data): static
   {
     $user= new self(
       $data['id'],

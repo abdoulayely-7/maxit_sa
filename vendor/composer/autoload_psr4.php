@@ -6,11 +6,15 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'src\\service\\' => array($baseDir . '/src/service'),
+    'src\\repository\\' => array($baseDir . '/src/repository'),
     'src\\enums\\' => array($baseDir . '/src/enums'),
     'src\\entity\\' => array($baseDir . '/src/entity'),
     'src\\controller\\' => array($baseDir . '/src/controller'),
+    'app\\core\\middlewares\\' => array($baseDir . '/app/core/middlewares'),
     'app\\core\\abstract\\' => array($baseDir . '/app/core/abstract'),
     'app\\core\\' => array($baseDir . '/app/core'),
+    'app\\config\\' => array($baseDir . '/app/config'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
