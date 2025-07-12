@@ -12,6 +12,13 @@
         }
     </style>
 </head>
+<?php
+    $errors = $_SESSION['errors'] ?? [];
+    $oldInput = $_SESSION['old_input'] ?? [];
+
+    unset($_SESSION['errors']);
+    unset($_SESSION['old_input']);
+?>
 <body class="bg-gray-100 min-h-screen">
     <!-- Container principal -->
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -51,6 +58,9 @@
                     <h2 class="text-xl font-semibold text-gray-900">
                         Connectez-vous à votre compte
                     </h2>
+                    <?php if (!empty($errors['connexion'])): ?>
+                            <p class="text-red-500"><?= htmlspecialchars($errors['connexion'][0]) ?></p>
+                        <?php endif; ?>
                 </div>
 
                 <!-- Formulaire -->
@@ -66,6 +76,9 @@
                             placeholder="entrez votre numéro"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                         />
+                        <?php if (!empty($errors['telephone'])): ?>
+                            <p class="text-sm text-red-500"><?= htmlspecialchars($errors['telephone'][0]) ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Champ mot de passe -->
@@ -79,6 +92,9 @@
                             placeholder="entrez votre mot de passe"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                         />
+                        <?php if (!empty($errors['password'])): ?>
+                            <p class="text-sm text-red-500"><?= htmlspecialchars($errors['password'][0]) ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Bouton Se connecter -->

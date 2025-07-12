@@ -4,6 +4,7 @@ namespace src\controller;
 
 use app\core\abstract\AbstractController;
 use app\core\App;
+use app\core\Validator;
 
 use function app\config\dd;
 
@@ -30,15 +31,25 @@ class SecurityController extends AbstractController
   {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
       extract($_POST);
+      Validator::resetErreur();
+      Validator::isEmpty($telephone, "telephone");
+      Validator::isTelephone($telephone,"telephone");
+      Validator::isEmpty($password, "password");
+      if (!Validator::isValid()) {
+          Validator::saveErrorsToSession($this->session);
+          header("location:" . WEB_URL);
+          exit;
+      }
+    
       $user = $this->securityService->seConnecter($telephone, $password);
       if ($user) {
         $this->session->set('user', $user->toArray());
         header("location:" . WEB_URL . "/solde");
-        var_dump($this->session->get("user"));die;
       } else {
-        var_dump($this->session->get("user"));die;
-
-        header("location:" .  WEB_URL);
+          Validator::addError('connexion', "Identifiants incorrects.");
+          Validator::saveErrorsToSession($this->session);
+          header("Location: " . WEB_URL );
+          exit;
       }
     }
   }
