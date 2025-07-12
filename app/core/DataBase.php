@@ -5,12 +5,11 @@ namespace app\core;
 use \PDO;
 use \PDOException;
 
-class DataBase
+class DataBase extends Singleton
 {
   private $connection;
-  private  static $instance = null;
 
-  private function __construct()
+  protected function __construct()
   {
     $host = DB_HOST;
     $port = DB_PORT;
@@ -34,14 +33,6 @@ class DataBase
     } catch (PDOException $e) {
       die("Erreur de connexion à la base de données : " . $e->getMessage());
     }
-  }
-
-  public static function getInstance()
-  {
-    if (self::$instance === null) {
-      self::$instance = new Database();
-    }
-    return self::$instance;
   }
 
   public function getConnection(): PDO

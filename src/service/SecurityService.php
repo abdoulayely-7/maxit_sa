@@ -3,29 +3,21 @@
 namespace src\service;
 
 use app\core\App;
+use app\core\Singleton;
 use src\entity\User;
 
-class SecurityService
+class SecurityService extends Singleton
 {
-  private static $instance = null;
   private $userRepository;
 
-  private function __construct()
+  protected function __construct()
   {
     $this->userRepository = App::getDependency("userRepository");
   }
 
   public function seConnecter(string $telephone, string $password) : null|User
   {
-    $resultat = $this->userRepository->selectByTelephoenAndPassword($telephone, $password);
-    return $resultat;
+    return $this->userRepository->selectByTelephoenAndPassword($telephone, $password);
   }
 
-  public static function getInstance()
-  {
-    if (self::$instance === null) {
-      self::$instance = new SecurityService();
-    }
-    return self::$instance;
-  }
 }

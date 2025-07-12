@@ -1,9 +1,9 @@
 <section class="bg-gray-100 p-6 rounded-xl shadow flex justify-between items-center">
         <div>
-          <h2 class="text-xl font-bold">Abd'ALLAH Ly</h2>
-          <p class="text-lg">77 379 53 83</p>
+          <h2 class="text-xl font-bold"><?= htmlspecialchars($infos["prenom"]." ".$infos["nom"]) ?></h2>
+          <p class="text-lg"><?= htmlspecialchars($infos["numero_tel"]) ?></p>
           <p class="text-lg font-bold mt-2">
-            Solde : <span class="text-black">1.000.000 Fcfa</span>
+            Solde : <span class="text-black"><?= htmlspecialchars($infos["solde"]) ?> Fcfa</span>
           </p>
         </div>
         <div>

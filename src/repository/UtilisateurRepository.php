@@ -7,8 +7,7 @@ use src\entity\User;
 
 class UtilisateurRepository extends AbstractRepository{
 
-  private static $instance = null;
-  private function __construct()
+  protected function __construct()
   {
     parent::__construct();
     $this->table = 'utilisateur';
@@ -29,13 +28,6 @@ class UtilisateurRepository extends AbstractRepository{
     return null;
   }
 
-    public static function getInstance()
-  {
-    if (self::$instance === null) {
-      self::$instance = new UtilisateurRepository();
-    }
-    return self::$instance;
-  }
 
 public function selectByid()
 {

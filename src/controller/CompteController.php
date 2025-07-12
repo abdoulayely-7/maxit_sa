@@ -1,12 +1,25 @@
 <?php
 namespace src\controller;
 use app\core\abstract\AbstractController;
+use app\core\App;
 
 class CompteController extends AbstractController{
-  public function index() {}
+
+  private $compteService;
+  public function __construct()
+  {
+    parent::__construct();
+    $this->compteService=App::getDependency("compteService");
+  }
+  public function index() {
+    $user = $this->session-> get("user");
+    $infos= $this->compteService->getCompteByUserId($user["id"]);
+    $this->render("solde/solde",
+    [ "infos" => $infos]);
+
+  }
 
   public function create() {
-    $this->render("solde/solde");
   }
   public function login(){
     header("location:".WEB_URL."/solde");
