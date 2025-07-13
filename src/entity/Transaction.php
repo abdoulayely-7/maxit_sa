@@ -19,7 +19,7 @@ class Transaction
         $this->compte = new Compte();
     }
 
-    public function getId(): ?int {
+    public function getId(): int {
         return $this->id; 
     }
     public function getDate(): \DateTime { 
@@ -55,7 +55,7 @@ class Transaction
         return [
             'id' => $this->id,
             'date' => $this->date->format('Y-m-d H:i:s'),
-            'typeTransaction' => $this->typeTransaction->value,
+            'typetransaction' => $this->typeTransaction->value,
             'montant' => $this->montant,
             'compte'=> $this->compte->toArray()
         ];
@@ -66,7 +66,7 @@ class Transaction
         $transaction = new self(
             $data['id'],
             new \DateTime($data['date']),
-            TypeTransaction::from($data['typeTransaction']),
+            TypeTransaction::from($data['typetransaction']),
             (float)$data['montant'],
             
         );

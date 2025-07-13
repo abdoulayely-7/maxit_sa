@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
       $user = $this->securityService->seConnecter($telephone, $password);
       if ($user) {
         $this->session->set('user', $user->toArray());
-        header("location:" . WEB_URL . "/solde");
+        header("location:" . WEB_URL . "/compte");
       } else {
           Validator::addError('connexion', "Identifiants incorrects.");
           Validator::saveErrorsToSession($this->session);

@@ -1,7 +1,7 @@
 <?php
-    require_once "../app/config/helpers.php";
+    // require_once "../app/config/helpers.php";
 
-    dd($result);
+    // dd($result);
 function dd($data){
     echo "<pre>";
     var_dump($data);

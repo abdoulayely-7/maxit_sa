@@ -1,8 +1,8 @@
 <?php
   namespace src\enums;
   enum TypeTransaction:string{
-    case DEPOT = "depot";
-    case TRANSFERT = "transfert";
-    case RETRAIT = "retrait";
-    case PAIEMENT = "paiement";
+    case DEPOT = "DEPOT";
+    case TRANSFERT = "TRANSFERT";
+    case RETRAIT = "RETRAIT";
+    case PAIEMENT = "PAIEMENT";
   }

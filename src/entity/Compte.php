@@ -91,7 +91,10 @@ class Compte extends AbstractEntity
         ];
     }
 
-    public static function toObject(array $data): self
+
+
+
+    public static function toObject(array $data): static
     {
         $compte =  new self(
             $data['id'] ?? 0,
