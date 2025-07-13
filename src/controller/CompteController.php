@@ -17,12 +17,30 @@ class CompteController extends AbstractController{
     $user = $this->session-> get("user");
     $infos= $this->compteService->getCompteByUserId($user["id"]);
     $transactions = $this->transactionService->getLastTenTransactionsByUserId($user["id"]);
-    // require_once "../app/config/helpers.php";
-    // dd($transactions);
+    $transactionsFormatted = array_map(function ($t) {
+        $type = $t->getTypeTransaction()->name;
+        return [
+            'date' => $t->getDate()->format('d/m/Y à H:i'),
+            'typeLabel' => ucfirst(strtolower($type)),
+            'montant' => number_format($t->getMontant(), 0, '', ' ') . ' FCFA',
+            'colorClass' => match ($type) {
+                'RETRAIT' => 'text-red-600 font-semibold',
+                'DEPOT'   => 'text-green-600 font-semibold',
+                default   => 'text-gray-700',
+            },
+            'icon' => match ($type) {
+                'RETRAIT' => '<i class="fas fa-arrow-down text-red-500"></i>',
+                'DEPOT'   => '<i class="fas fa-arrow-up text-green-500"></i>',
+                'PAIEMENT' => '<i class="fas fa-credit-card text-yellow-500"></i>',
+                'TRANSFERT' => '<i class="fas fa-exchange-alt text-blue-500"></i>',
+                default => '<i class="fas fa-question-circle text-gray-500"></i>',
+            },
+        ];
+    }, $transactions);
     $this->render("solde/solde",
     [ 
         "infos" => $infos,
-        "transactions" => $transactions
+        "transactions" => $transactionsFormatted
     ]);
 
   }

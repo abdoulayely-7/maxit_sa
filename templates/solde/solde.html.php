@@ -37,31 +37,20 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($transactions as $transaction): ?>
-      <?php
-        $type = $transaction->getTypeTransaction()->name;
-        $typeLabel = ucfirst(strtolower($type));
-
-        $colorClass = match ($type) {
-          'RETRAIT' => 'text-red-600 font-semibold',
-          'DEPOT'   => 'text-green-600 font-semibold',
-          default   => 'text-gray-700',
-        };
-      ?>
+    <?php foreach ($transactions as $t): ?>
       <tr class="border-t">
-        <td class="py-2 px-6">
-          <?= $transaction->getDate()->format('d/m/Y à H:i') ?>
+        <td class="py-2 px-6"><?= $t['date'] ?></td>
+        <td class="py-2 px-6 <?= $t['colorClass'] ?>">
+          <?= $t['icon'] ?> <?= $t['typeLabel'] ?>
         </td>
-        <td class="py-2 px-6 <?= $colorClass ?>">
-          <?= $typeLabel ?>
-        </td>
-        <td class="py-2 px-6 <?= $colorClass ?>">
-          <?= number_format($transaction->getMontant(), 0, '', ' ') ?> FCFA
+        <td class="py-2 px-6 <?= $t['colorClass'] ?>">
+          <?= $t['montant'] ?>
         </td>
       </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
+
 
 
   </div>
