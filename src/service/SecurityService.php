@@ -19,5 +19,9 @@ class SecurityService extends Singleton
   {
     return $this->userRepository->selectByTelephoenAndPassword($telephone, $password);
   }
+    public function inscrireClient(User $user): void
+    {
+        $this->userRepository->inscriptionTransaction($user);
+    }
 
 }

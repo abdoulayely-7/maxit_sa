@@ -82,9 +82,9 @@ class Profil extends AbstractEntity{
       $data["id"],
       $data["libelle"],
     );
-    if (isset($data["user"]) && is_array($data["user"])) {
+    if (isset($data["users"]) && is_array($data["users"])) {
       array_map(fn($u) => $profil -> addUser($u),
-    $data["user"]);
+    $data["users"]);
     }
     return $profil;
   }

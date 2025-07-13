@@ -47,7 +47,7 @@
                 </div>
 
                 <!-- Formulaire -->
-                <form class="space-y-6">
+                <form action="<?php WEB_URL ?>/dosignup" method="POST" class="space-y-6">
                     <!-- Prénom et Nom sur la même ligne -->
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -56,6 +56,7 @@
                             </label>
                             <input 
                                 type="text" 
+                                name="prenom"
                                 placeholder="Entrez votre prénom"
                                 class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                             />
@@ -66,6 +67,7 @@
                             </label>
                             <input 
                                 type="text" 
+                                name="nom"
                                 placeholder="Entrez votre nom"
                                 class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                             />
@@ -79,7 +81,20 @@
                         </label>
                         <input 
                             type="tel" 
+                            name="telephone"
                             placeholder="Entrez votre numéro de téléphone"
+                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
+                        />
+                    </div>
+                    <!-- mot de passe -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Mot de passe
+                        </label>
+                        <input 
+                            type="password" 
+                            name="password"
+                            placeholder="Entrez votre mot de passe"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                         />
                     </div>
@@ -91,6 +106,7 @@
                         </label>
                         <input 
                             type="text" 
+                            name="adresse"
                             placeholder="Entrez votre adresse"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                         />
@@ -103,6 +119,7 @@
                         </label>
                         <input 
                             type="text" 
+                            name="cni"
                             placeholder="Numéro nationale d'identité"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
                         />
@@ -124,7 +141,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="file" accept="image/*" class="hidden">
+                                <input type="file" name="photo_recto" accept="image/*" class="hidden">
                             </label>
                         </div>
                         
@@ -142,7 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="file" accept="image/*" class="hidden">
+                                <input type="file" name="photo_verso" accept="image/*" class="hidden">
                             </label>
                         </div>
                     </div>

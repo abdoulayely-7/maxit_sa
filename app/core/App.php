@@ -3,9 +3,11 @@ namespace app\core;
 
 use app\core\middlewares\Auth;
 use src\repository\CompteRepository;
+use src\repository\ProfilRepository;
 use src\repository\TransactionRepository;
 use src\repository\UtilisateurRepository;
 use src\service\CompteService;
+use src\service\ProfilService as ServiceProfilService;
 use src\service\SecurityService;
 use src\service\TransactionService;
 
@@ -25,11 +27,13 @@ class App
                 "securityService" => SecurityService::class,
                 "compteService" => CompteService::class,
                 "transactionService" => TransactionService::class,
+                "profilService" => ServiceProfilService::class,
             ],
             "repository" => [
                 "userRepository" => UtilisateurRepository::class,
                 "compteRepository" => CompteRepository::class,
                 "transactionRepository" => TransactionRepository::class,
+                "profilRepository" => ProfilRepository::class,
             ],
         ];
     }
