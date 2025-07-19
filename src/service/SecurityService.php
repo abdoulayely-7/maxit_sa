@@ -15,13 +15,13 @@ class SecurityService extends Singleton
     $this->userRepository = App::getDependency("userRepository");
   }
 
-  public function seConnecter(string $telephone, string $password) : null|User
+  public function seConnecter(string $telephone) : null|User
   {
-    return $this->userRepository->selectByTelephoenAndPassword($telephone, $password);
+    return $this->userRepository->selectByTelephoenAndPassword($telephone);
   }
-    public function inscrireClient(User $user): void
+  public function inscrireClient(User $user): void
     {
-        $this->userRepository->inscriptionTransaction($user);
+      $this->userRepository->inscriptionTransaction($user);
     }
 
 }

@@ -2,6 +2,9 @@
 namespace app\core;
 
 use app\core\middlewares\Auth;
+use src\entity\Compte;
+use src\entity\Profil;
+use src\entity\User;
 use src\repository\CompteRepository;
 use src\repository\ProfilRepository;
 use src\repository\TransactionRepository;
@@ -9,6 +12,7 @@ use src\repository\UtilisateurRepository;
 use src\service\CompteService;
 use src\service\ProfilService as ServiceProfilService;
 use src\service\SecurityService;
+use src\service\SmsService;
 use src\service\TransactionService;
 
 class App
@@ -28,6 +32,7 @@ class App
                 "compteService" => CompteService::class,
                 "transactionService" => TransactionService::class,
                 "profilService" => ServiceProfilService::class,
+                "smsService" => SmsService::class,
             ],
             "repository" => [
                 "userRepository" => UtilisateurRepository::class,
@@ -35,23 +40,29 @@ class App
                 "transactionRepository" => TransactionRepository::class,
                 "profilRepository" => ProfilRepository::class,
             ],
+            "entity" => [
+                "user" => User::class,
+                "compte" => Compte::class,
+                "transaction" => TransactionRepository::class,
+                "profil" => Profil::class,
+            ]
         ];
     }
 
-public static function getDependency(string $dep)
-{
-    if (empty(self::$dependencies)) {
-        self::init();
-    }
-    foreach (self::$dependencies as $category) {
-        if (is_array($category) && isset($category[$dep])) {
-            $class = $category[$dep];
-            if (method_exists($class, 'getInstance')) {
-                return $class::getInstance();
-            }
-            return new $class();
+    public static function getDependency(string $dep)
+    {
+        if (empty(self::$dependencies)) {
+            self::init();
         }
+        foreach (self::$dependencies as $category) {
+            if (is_array($category) && isset($category[$dep])) {
+                $class = $category[$dep];
+                if (method_exists($class, 'getInstance')) {
+                    return $class::getInstance();
+                }
+                return new $class();
+            }
+        }
+        return null;
     }
-    return null;
-}
 }

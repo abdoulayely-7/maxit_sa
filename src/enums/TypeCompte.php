@@ -1,6 +1,6 @@
 <?php
 namespace src\enums;
 enum TypeCompte:string{
-  case PRINCIPALE = "pricipal";
+  case PRINCIPALE = "principal";
   case SECONDAIRE = "secondaire";
 }

@@ -10,27 +10,37 @@ use src\enums\TypeCompte;
 
 class UtilisateurRepository extends AbstractRepository
 {
-
   protected function __construct()
   {
     parent::__construct();
     $this->table = 'utilisateur';
   }
 
-  public function selectByTelephoenAndPassword(string $telephone, string $password): null|User
+  public function selectByTelephoenAndPassword(string $telephone): null|User
   {
-    $query = "SELECT * FROM $this->table  WHERE telephone = :telephone AND password = :password";
+    $query = "SELECT * FROM $this->table  WHERE telephone = :telephone";
     $stmt = $this->db->getConnection()->prepare($query);
     $stmt->execute([
       "telephone" => $telephone,
-      "password" => $password
     ]);
     $result = $stmt->fetch();
-    if ($result) {
-      return User::toObject($result);
-    }
-    return null;
+    return $result ? User::toObject($result) : null;
   }
+
+
+    public function existByTelephone(string $telephone): bool {
+      $stmt = $this->db->getConnection()->prepare("SELECT id FROM utilisateur WHERE telephone = :telephone");
+      $stmt->execute(['telephone' => $telephone]);
+      return $stmt->fetch() !== false;
+  }
+
+  public function existByCni(string $cni): bool {
+      $stmt = $this->db->getConnection()->prepare("SELECT id FROM utilisateur WHERE cni = :cni");
+      $stmt->execute(['cni' => $cni]);
+      return $stmt->fetch() !== false;
+  }
+
+
 
   public function inscriptionTransaction(User $user): void
   {
@@ -38,8 +48,8 @@ class UtilisateurRepository extends AbstractRepository
       $this->db->getConnection()->beginTransaction();
 
       $stmtUser = $this->db->getConnection()->prepare("
-                INSERT INTO $this->table (nom, prenom, telephone, password, adresse, cni, photo_recto, photo_verso, profil_id)
-                VALUES (:nom, :prenom, :telephone, :password, :adresse, :cni, :photo_recto, :photo_verso, :profil_id)
+                INSERT INTO $this->table (nom, prenom, telephone, password, adresse, cni, photoRecto, photoVerso, profil_id)
+                VALUES (:nom, :prenom, :telephone, :password, :adresse, :cni, :photoRecto, :photoVerso, :profil_id)
             ");
 
       $stmtUser->execute([
@@ -49,9 +59,10 @@ class UtilisateurRepository extends AbstractRepository
         'password' => $user->getPassword(),
         'adresse' => $user->getAdresse(),
         'cni' => $user->getCni(),
-        'photo_recto' => $user->getPhotoRecto(),
-        'photo_verso' => $user->getPhotoVerso(),
+        'photoRecto' => $user->getPhotoRecto(),
+        'photoVerso' => $user->getPhotoVerso(),
         'profil_id' => $user->getProfil()->getId(),
+        
       ]);
 
       $userId = (int) $this->db->getConnection()->lastInsertId();

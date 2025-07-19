@@ -1,13 +1,16 @@
 <?php
+
 namespace app\core;
-class FileUpload{
-public static function save(array $file): ?string
+
+class FileUpload
+{
+    public static function save(array $file): ?string
     {
         if ($file['error'] !== UPLOAD_ERR_OK) {
             return null;
         }
 
-        $uploadDir = UPLOAD_DIR ?? 'public/images/uploads';
+        $uploadDir = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . UPLOAD_DIR;
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }

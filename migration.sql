@@ -155,3 +155,5 @@ VALUES (
         1
     ),
     (now(), 'RETRAIT', 60000.00, 1);
+
+ALTER TABLE nom_table RENAME COLUMN ancien_nom TO nouveau_nom;

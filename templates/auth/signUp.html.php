@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         body {
             font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen">
     <!-- Container principal -->
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -26,7 +29,7 @@
                             <!-- Icône dollar avec lignes -->
                             <div class="relative mr-3">
                                 <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
                                 </svg>
                                 <!-- Lignes horizontales -->
                                 <div class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4">
@@ -46,31 +49,37 @@
                     </div>
                 </div>
 
+                <?php $errors = $_SESSION["errors"] ?? []; ?>
+
                 <!-- Formulaire -->
-                <form action="<?php WEB_URL ?>/dosignup" method="POST" class="space-y-6">
+                <form action="<?php WEB_URL ?>/dosignup" method="POST" enctype="multipart/form-data" class="space-y-6">
                     <!-- Prénom et Nom sur la même ligne -->
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Prénom
                             </label>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 name="prenom"
                                 placeholder="Entrez votre prénom"
-                                class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
-                            />
+                                class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
+                            <?php if (!empty($errors['prenom'])): ?>
+                                <p class="text-red-500 text-sm mt-1"><?= implode('<br>', $errors['prenom']) ?></p>
+                            <?php endif; ?>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Nom
                             </label>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 name="nom"
                                 placeholder="Entrez votre nom"
-                                class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
-                            />
+                                class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
+                            <?php if (!empty($errors['nom'])): ?>
+                                <p class="text-red-500 text-sm mt-1"><?= implode('<br>', $errors['nom']) ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -79,24 +88,28 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Numéro
                         </label>
-                        <input 
-                            type="tel" 
+                        <input
+                            type="tel"
                             name="telephone"
                             placeholder="Entrez votre numéro de téléphone"
-                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
-                        />
+                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
+                        <?php if (!empty($errors['telephone'])): ?>
+                            <p class="text-red-500 text-sm mt-1"><?= $errors['telephone'][0] ?></p>
+                        <?php endif; ?>
                     </div>
                     <!-- mot de passe -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Mot de passe
                         </label>
-                        <input 
-                            type="password" 
+                        <input
+                            type="password"
                             name="password"
                             placeholder="Entrez votre mot de passe"
-                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
-                        />
+                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
+                        <?php if (!empty($errors['password'])): ?>
+                            <p class="text-red-500 text-sm mt-1"><?= implode('<br>', $errors['password']) ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Adresse -->
@@ -104,12 +117,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Adresse
                         </label>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             name="adresse"
                             placeholder="Entrez votre adresse"
-                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
-                        />
+                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
+                        <?php if (!empty($errors['adresse'])): ?>
+                            <p class="text-red-500 text-sm mt-1"><?= implode('<br>', $errors['adresse']) ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <!-- CNI -->
@@ -117,12 +132,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             CNI
                         </label>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             name="cni"
                             placeholder="Numéro nationale d'identité"
-                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50"
-                        />
+                            class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
+                        <?php if (!empty($errors['cni'])): ?>
+                            <p class="text-red-500 text-sm mt-1"><?= $errors['cni'][0] ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Upload de documents -->
@@ -141,10 +158,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="file" name="photo_recto" accept="image/*" class="hidden">
+                                <input type="file" name="photorecto" accept="image/*" class="hidden">
                             </label>
+                            <div>
+                                <?php if (!empty($errors['photorecto'])): ?>
+                                    <p class="text-red-500 text-sm mt-1"><?= implode('<br>', $errors['photorecto']) ?></p>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        
+
                         <!-- Verso -->
                         <div>
                             <label class="block w-full">
@@ -159,24 +181,36 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="file" name="photo_verso" accept="image/*" class="hidden">
+                                <input type="file" name="photoverso" accept="image/*" class="hidden">
                             </label>
+                            <div></div>
+                            <?php if (!empty($errors['photoverso'])): ?>
+                                <p class="text-red-500 text-sm mt-1"><?= implode('<br>', $errors['photoverso']) ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
-
-                    <!-- Bouton Créer un compte -->
-                    <div class="pt-4">
-                        <button 
-                            type="submit"
-                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors"
-                        >
-                            Créer un compte
-                        </button>
-                    </div>
-                </form>
             </div>
+
+            <!-- Bouton Créer un compte -->
+            <div class="pt-4">
+                <button
+                    type="submit"
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">
+                    Créer un compte
+                </button>
+            </div>
+            </form>
         </div>
     </div>
+    </div>
+
+    <?php
+    // Nettoyer les erreurs après affichage
+    if (isset($_SESSION["errors"])) {
+        unset($_SESSION["errors"]);
+    }
+    ?>
+
 
     <script>
         // Gestion des uploads de fichiers
@@ -196,4 +230,5 @@
         });
     </script>
 </body>
+
 </html>

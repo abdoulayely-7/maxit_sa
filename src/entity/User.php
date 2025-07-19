@@ -13,43 +13,21 @@ class User extends AbstractEntity
   private string $telephone;
   private string $password;
   private string $cni;
-  private ?string $photoRecto = null;
-  private ?string $photoVerso = null;
+  private string $photoRecto;
+  private string $photoVerso;
   private string $adresse;
   private Profil $profil;
   private array $comptes;
 
-  public function __construct(
-    int $id=0,
-    string $nom='',
-    string $prenom='',
-    string $telephone='',
-    string $password='',
-    string $cni='',
-    string $adresse='',
-    ?string $photoRecto = null,
-    ?string $photoVerso = null
-  ) {
-    $this->id=$id;
-    $this->nom = $nom;
-    $this->prenom = $prenom;
-    $this->telephone = $telephone;
-    $this->password = $password;
-    $this->cni = $cni;
-    $this->adresse = $adresse;
-    $this->profil = new Profil();
-    $this->photoRecto = $photoRecto;
-    $this->photoVerso = $photoVerso;
-    $this->comptes = [];
+  public function __construct(int $id=0,string $nom='',string $prenom='',string $telephone='',string $password='',string $cni='',string $adresse='',string $photoRecto='' ,string $photoVerso=''
+  ) {$this->id=$id;$this->nom = $nom;$this->prenom = $prenom;$this->telephone = $telephone;$this->password = $password;$this->cni = $cni;$this->adresse = $adresse;$this->profil = new Profil();$this->photoRecto = $photoRecto;$this->photoVerso = $photoVerso;$this->comptes = [];
   }
-
-
 
   public function getId(): ?int
   {
     return $this->id;
   }
-  public function setId(int $id): void
+    public function setId(int $id): void
   {
     $this->id = $id;
   }
@@ -98,20 +76,20 @@ class User extends AbstractEntity
     $this->cni = $cni;
   }
 
-  public function getPhotoRecto(): ?string
+  public function getPhotoRecto(): string
   {
     return $this->photoRecto;
   }
-  public function setPhotoRecto(?string $photoRecto): void
+  public function setPhotoRecto(string $photoRecto): void
   {
     $this->photoRecto = $photoRecto;
   }
 
-  public function getPhotoVerso(): ?string
+  public function getPhotoVerso(): string
   {
     return $this->photoVerso;
   }
-  public function setPhotoVerso(?string $photoVerso): void
+  public function setPhotoVerso(string $photoVerso): void
   {
     $this->photoVerso = $photoVerso;
   }
@@ -166,12 +144,12 @@ class User extends AbstractEntity
       $data['id'],
       $data['nom'],
       $data['prenom'],
-      $data['telephone'],
+      $data['telephone'],  
       $data['password'],
       $data['cni'],
       $data['adresse'],
-      $data['photoRecto'] ?? null,
-      $data['photoRecto'] ?? null,
+      $data['photorecto'] ?? '',
+      $data['photoverso'] ?? '',
     );
     if (isset($data["profil"]) && is_array($data["profil"])){
       $user -> setProfil(Profil::toObject($data["profil"]));

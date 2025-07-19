@@ -24,11 +24,11 @@
 
     <!-- Menu -->
     <nav class="flex flex-col mt-14 space-y-10 w-full px-6">
-      <a href="#" class="flex items-center space-x-3 py-3 px-4 rounded-md bg-white text-black">
+      <a href="<?= WEB_URL ?>/compte" class="flex items-center space-x-3 py-3 px-4 rounded-md bg-white text-black">
         <span><i class="fa-solid fa-house"></i></span>
         <span class="font-semibold">Accueil</span>
       </a>
-      <a href="#" class="flex text-black items-center space-x-3 py-3 px-4 rounded-md bg-orange-500">
+      <a href="<?php WEB_URL ?>/listecompte" class="flex text-black items-center space-x-3 py-3 px-4 rounded-md bg-orange-500">
         <span><i class="fa-solid fa-users-viewfinder"></i></span>
         <span>Mes comptes</span>
       </a>
@@ -36,9 +36,9 @@
         <span><i class="fa-solid fa-money-bill-transfer"></i></span>
         <span>Transactions</span>
       </a>
-      <a href="#" class="flex items-center text-black space-x-3 py-3 px-4 rounded-md bg-orange-500">
+      <a href="<?php WEB_URL ?>/addcompte" class="flex items-center text-black space-x-3 py-3 px-4 rounded-md bg-orange-500">
         <span><i class="fa-solid fa-user-plus"></i></span>
-        <span>Compte</span>
+        <span>Ajouter Compte</span>
       </a>
     </nav>
   </div>
@@ -47,11 +47,11 @@
   <div class="px-6">
     <form action="<?php WEB_URL ?>/logout" method="post">
       <button
-      type="submit"
-      class="flex items-center space-x-3 w-full bg-orange-500 text-black py-3 px-4 rounded-md hover:bg-orange-600 transition">
-      <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
-      <span>Déconnexion</span>
-    </button>
+        type="submit"
+        class="flex items-center space-x-3 w-full bg-orange-500 text-black py-3 px-4 rounded-md hover:bg-orange-600 transition">
+        <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+        <span>Déconnexion</span>
+      </button>
     </form>
   </div>
 </aside>

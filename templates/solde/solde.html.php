@@ -48,6 +48,11 @@
         </td>
       </tr>
     <?php endforeach; ?>
+    <?php if (empty($transactions)): ?>
+      <tr>
+        <td colspan="3" class="py-4 px-6 text-center text-gray-500">Aucune transaction trouvée</td>
+      </tr>
+    <?php endif; ?>
   </tbody>
 </table>
 

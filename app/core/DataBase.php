@@ -20,7 +20,7 @@ class DataBase extends Singleton
     try {
       $infoDB = "pgsql:host=$host;port=$port;dbname=$dbname;";
       $this->connection = new PDO(
-        $infoDB,
+        DSN,
         $user,
         $password,
         [
