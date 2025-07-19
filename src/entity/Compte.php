@@ -100,7 +100,7 @@ class Compte extends AbstractEntity
             $data['id'] ?? 0,
             $data['numeroTel'] ?? '',
             $data['solde'] ?? 0.0,
-            TypeCompte::from($data['typeCompte']) ?? 'PRINCIPAL'
+            TypeCompte::from($data['typeCompte']) ?? 'principal'
         );
 
         if (isset($data["user"]) && is_array($data['user'])) {

@@ -109,8 +109,8 @@ class Migration
                 telephone VARCHAR(20) UNIQUE NOT NULL,
                 password VARCHAR(255),
                 cni VARCHAR(150) UNIQUE NOT NULL,
-                photo_recto TEXT,
-                photo_verso TEXT,
+                photorecto TEXT,
+                photoverso TEXT,
                 adresse VARCHAR(255),
                 profil_id INTEGER REFERENCES profil(id)
             )",
@@ -121,8 +121,8 @@ class Migration
                 solde DECIMAL(12,2) DEFAULT 0.00,
                 numero_tel VARCHAR(20) UNIQUE NOT NULL," .
                 (self::$driver === 'pgsql'
-                    ? " typeCompte type_compte,"
-                    : " typeCompte VARCHAR(20) CHECK (typeCompte IN ('principal', 'secondaire')),"
+                    ? " typecompte type_compte,"
+                    : " typecompte VARCHAR(20) CHECK (typecompte IN ('principal', 'secondaire')),"
                 ) . "
                 utilisateur_id INTEGER REFERENCES utilisateur(id) ON DELETE CASCADE
             )",
@@ -132,8 +132,8 @@ class Migration
                 id " . self::type('id') . ",
                 date " . self::type('date') . "," .
                 (self::$driver === 'pgsql'
-                    ? " typeTransaction typetransaction NOT NULL,"
-                    : " typeTransaction VARCHAR(20) NOT NULL CHECK (typeTransaction IN ('DEPOT', 'RETRAIT', 'PAIEMENT', 'TRANSFERT')),"
+                    ? " typetransaction typetransaction NOT NULL,"
+                    : " typetransaction VARCHAR(20) NOT NULL CHECK (typetransaction IN ('DEPOT', 'RETRAIT', 'PAIEMENT', 'TRANSFERT')),"
                 ) . "
                 montant DECIMAL(12,2) NOT NULL,
                 compte_id INTEGER REFERENCES compte(id) ON DELETE CASCADE

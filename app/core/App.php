@@ -14,6 +14,7 @@ use src\service\ProfilService as ServiceProfilService;
 use src\service\SecurityService;
 use src\service\SmsService;
 use src\service\TransactionService;
+use Symfony\Component\Yaml\Yaml;
 
 class App
 {
@@ -21,32 +22,12 @@ class App
 
     public static function init()
     {
-        self::$dependencies = [
-            "core" => [
-                "database" => DataBase::class,
-                "session" => Session::class,
-                "auth" => Auth::class,
-            ],
-            "service" => [
-                "securityService" => SecurityService::class,
-                "compteService" => CompteService::class,
-                "transactionService" => TransactionService::class,
-                "profilService" => ServiceProfilService::class,
-                "smsService" => SmsService::class,
-            ],
-            "repository" => [
-                "userRepository" => UtilisateurRepository::class,
-                "compteRepository" => CompteRepository::class,
-                "transactionRepository" => TransactionRepository::class,
-                "profilRepository" => ProfilRepository::class,
-            ],
-            "entity" => [
-                "user" => User::class,
-                "compte" => Compte::class,
-                "transaction" => TransactionRepository::class,
-                "profil" => Profil::class,
-            ]
-        ];
+        $configPath = '../app/config/service.yml';
+        if (file_exists($configPath)) {
+            self::$dependencies = Yaml::parseFile($configPath);
+        } else {
+            throw new \Exception("Le fichier de configuration des dépendances est introuvable.");
+        }
     }
 
     public static function getDependency(string $dep)
