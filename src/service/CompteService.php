@@ -27,4 +27,16 @@ class CompteService extends Singleton
   {
     return $this->compteRepository->getAllCompteSecondaire($userId);
   }
+
+  public function findById(int $compteId): ?array
+{
+    return $this->compteRepository->findById($compteId);
+}
+
+public function activerCompte(int $compteId): void
+{
+    $this->compteRepository->activerCompte($compteId);
+}
+
+
 }

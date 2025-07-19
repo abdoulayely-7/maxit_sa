@@ -72,7 +72,7 @@ class CompteController extends AbstractController
 
       if (!Validator::isValid()) {
         Validator::saveErrorsToSession($this->session);
-          header("Location: " . WEB_URL . "/addcompte");
+        header("Location: " . WEB_URL . "/addcompte");
         exit;
       }
       $user = $this->session->get("user");
@@ -115,6 +115,25 @@ class CompteController extends AbstractController
       "comptes" => $comptes
     ]);
   }
+
+public function activerCompte()
+{
+    $compteId = $_POST['compte_id'] ?? null;
+
+    if (!$compteId || !is_numeric($compteId)) {
+        // Erreur ou tentative d'accès non autorisé
+        $this->session->set("error", "Compte invalide ou non spécifié.");
+        header("Location: " . WEB_URL . "/listecompte");
+        exit;
+    }
+
+    $this->compteService->activerCompte((int)$compteId);
+    $this->session->set("success", "Compte activé avec succès.");
+    header("Location: " . WEB_URL . "/listecompte");
+    exit;
+}
+
+
 
   public function create() {}
   public function login()

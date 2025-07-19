@@ -77,4 +77,50 @@ class CompteRepository extends AbstractRepository
       'utilisateur_id' => $compte->getUser()->getId()
     ]);
   }
+
+  public function activerCompte(int $compteId): void
+{
+    $compte = $this->findById($compteId);
+    if (!$compte) {
+        throw new \Exception("Compte introuvable.");
+    }
+
+    $userId = $compte['utilisateur_id'];
+
+    // 1. Définir l'actuel principal comme secondaire
+    $this->setPrincipalToSecondaire($userId);
+
+    // 2. Passer ce compte en principal
+    $this->setSecondaireToPrincipal($compteId);
+}
+
+public function findById(int $id): ?array
+{
+    $stmt = $this->db->getConnection()->prepare("
+        SELECT * FROM $this->table WHERE id = :id
+    ");
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetch() ?: null;
+}
+
+public function setPrincipalToSecondaire(int $userId): void
+{
+    $stmt = $this->db->getConnection()->prepare("
+        UPDATE $this->table
+        SET typecompte = 'secondaire'
+        WHERE utilisateur_id = :userId AND typecompte = 'principal'
+    ");
+    $stmt->execute(['userId' => $userId]);
+}
+
+public function setSecondaireToPrincipal(int $compteId): void
+{
+    $stmt = $this->db->getConnection()->prepare("
+        UPDATE $this->table
+        SET typecompte = 'principal'
+        WHERE id = :id
+    ");
+    $stmt->execute(['id' => $compteId]);
+}
+
 }
