@@ -5,7 +5,7 @@ use src\entity\Transaction;
 
 class TransactionRepository extends AbstractRepository{
 
-  protected function __construct()
+  public function __construct()
   {
     parent::__construct();
     $this->table = 'transaction';
@@ -22,7 +22,7 @@ class TransactionRepository extends AbstractRepository{
       limit 10
     ";
 
-    $stmt = $this->db->getConnection()->prepare($query);
+    $stmt = $this->db->prepare($query);
     $stmt->execute(['userId' => $userId]);
     $results = $stmt->fetchAll();
 

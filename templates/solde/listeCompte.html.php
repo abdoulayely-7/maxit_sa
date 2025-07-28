@@ -1,12 +1,12 @@
 <div class="flex-1 flex flex-col px-8 py-6 space-y-6 overflow-auto">
   <!-- Titre -->
-   <?php if (isset($_SESSION['success'])): ?>
-  <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-    <strong class="font-bold">Succès !</strong>
-    <span class="block sm:inline"><?= $_SESSION['success'] ?></span>
-  </div>
-  <?php unset($_SESSION['success']); ?>
-<?php endif; ?>
+  <?php if (isset($_SESSION['success'])): ?>
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">Succès !</strong>
+      <span class="block sm:inline"><?= $_SESSION['success'] ?></span>
+    </div>
+    <?php unset($_SESSION['success']); ?>
+  <?php endif; ?>
   <div class=" flex  justify-between border-b border-gray-300 pb-2 sticky top-0 z-10 bg-white pb-2">
     <h1 class="text-2xl font-bold text-gray-900 ">
       <i class="fa-solid fa-mobile text-orange-500"></i>
@@ -21,13 +21,13 @@
 
   <!-- Liste des comptes -->
   <div class="grid gap-6 w-full sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-  <?php if (isset($_SESSION['success'])): ?>
-  <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-    <strong class="font-bold">Succès !</strong>
-    <span class="block sm:inline"><?= $_SESSION['success'] ?></span>
-  </div>
-  <?php unset($_SESSION['success']); ?>
-<?php endif; ?>
+    <?php if (isset($_SESSION['success'])): ?>
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Succès !</strong>
+        <span class="block sm:inline"><?= $_SESSION['success'] ?></span>
+      </div>
+      <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
 
 
     <!-- Carte compte -->

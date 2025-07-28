@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\Container;
+
 class Router
 {
   public static function resolve(array $tabs)
@@ -12,15 +14,18 @@ class Router
       $action = $tabs[$uri]['action'];
       $middlewares = require '../app/config/middlewares.php';
       $middlewareName = $tabs[$uri]['middleware'] ?? null;
+
       if (isset($middlewares[$middlewareName])) {
-        $middlewareClase = $middlewares[$middlewareName];
-        $middleware = new $middlewareClase();
+        $middlewareClass = $middlewares[$middlewareName];
+        $middleware = new $middlewareClass();
         $middleware();
       }
-      $controller = new $controllerName();
+
+      // ✅ Utilise ta méthode App::get() pour gérer l'injection de dépendance
+      $controller = App::get($controllerName);
       $controller->$action();
     } else {
-      var_dump("erreur");
+      var_dump("Erreur : route non trouvée");
       die;
     }
   }

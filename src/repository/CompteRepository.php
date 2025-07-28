@@ -8,7 +8,7 @@ use src\enums\TypeCompte;
 
 class CompteRepository extends AbstractRepository
 {
-  protected function __construct()
+  public function __construct()
   {
     parent::__construct();
     $this->table = 'compte';
@@ -32,7 +32,7 @@ class CompteRepository extends AbstractRepository
       LIMIT 1
     ";
 
-    $stmt = $this->db->getConnection()->prepare($query);
+    $stmt = $this->db->prepare($query);
     $stmt->execute(['id' => $userId]);
     $result = $stmt->fetch();
 
@@ -55,7 +55,7 @@ class CompteRepository extends AbstractRepository
         AND c.typecompte = 'secondaire'
     ";
 
-    $stmt = $this->db->getConnection()->prepare($query);
+    $stmt = $this->db->prepare($query);
     $stmt->execute(['userId' => $userId]);
     return $stmt->fetchAll() ?: [];
   }
@@ -69,7 +69,7 @@ class CompteRepository extends AbstractRepository
       VALUES (:solde, :numero_tel, :typecompte, :utilisateur_id)
     ";
 
-    $stmt = $this->db->getConnection()->prepare($query);
+    $stmt = $this->db->prepare($query);
     $stmt->execute([
       'solde' => $compte->getSolde(),
       'numero_tel' => $compte->getNumeroTel(),
@@ -96,7 +96,7 @@ class CompteRepository extends AbstractRepository
 
 public function findById(int $id): ?array
 {
-    $stmt = $this->db->getConnection()->prepare("
+    $stmt = $this->db->prepare("
         SELECT * FROM $this->table WHERE id = :id
     ");
     $stmt->execute(['id' => $id]);
@@ -105,7 +105,7 @@ public function findById(int $id): ?array
 
 public function setPrincipalToSecondaire(int $userId): void
 {
-    $stmt = $this->db->getConnection()->prepare("
+    $stmt = $this->db->prepare("
         UPDATE $this->table
         SET typecompte = 'secondaire'
         WHERE utilisateur_id = :userId AND typecompte = 'principal'
@@ -115,7 +115,7 @@ public function setPrincipalToSecondaire(int $userId): void
 
 public function setSecondaireToPrincipal(int $compteId): void
 {
-    $stmt = $this->db->getConnection()->prepare("
+    $stmt = $this->db->prepare("
         UPDATE $this->table
         SET typecompte = 'principal'
         WHERE id = :id

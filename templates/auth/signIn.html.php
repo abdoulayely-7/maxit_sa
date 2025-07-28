@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-
+        
                 <!-- Titre -->
                 <div class="text-center mb-8">
                     <h2 class="text-xl font-semibold text-gray-900">
@@ -132,3 +132,4 @@
     </div>
 </body>
 </html>
+

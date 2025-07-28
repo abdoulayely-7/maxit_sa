@@ -5,13 +5,15 @@ namespace src\service;
 use app\core\App;
 use app\core\Singleton;
 use src\entity\Compte;
+use src\repository\CompteRepository;
 
 class CompteService extends Singleton
 {
-  private $compteRepository;
-  protected function __construct()
+  private CompteRepository $compteRepository;
+
+  public function __construct(CompteRepository $compteRepository)
   {
-    $this->compteRepository = App::getDependency("compteRepository");
+    $this->compteRepository = $compteRepository;
   }
 
   public function getCompteByUserId(int $userId): ?array

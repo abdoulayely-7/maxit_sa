@@ -2,18 +2,7 @@
 namespace app\core;
 
 use app\core\middlewares\Auth;
-use src\entity\Compte;
-use src\entity\Profil;
-use src\entity\User;
-use src\repository\CompteRepository;
-use src\repository\ProfilRepository;
-use src\repository\TransactionRepository;
-use src\repository\UtilisateurRepository;
-use src\service\CompteService;
-use src\service\ProfilService as ServiceProfilService;
-use src\service\SecurityService;
-use src\service\SmsService;
-use src\service\TransactionService;
+use ReflectionClass;
 use Symfony\Component\Yaml\Yaml;
 
 class App
@@ -29,7 +18,7 @@ class App
             throw new \Exception("Le fichier de configuration des dépendances est introuvable.");
         }
     }
-
+    // ancien méthode fasçade
     public static function getDependency(string $dep)
     {
         if (empty(self::$dependencies)) {
@@ -45,5 +34,48 @@ class App
             }
         }
         return null;
+    }
+
+
+    private static array $instances = [];
+
+    public static function get(string $class)
+    {
+        // Si déjà instancié (singleton), on retourne l’instance
+        if (isset(self::$instances[$class])) {
+            return self::$instances[$class];
+        }
+
+        // Si c’est un Singleton, on l’instancie UNE fois seulement
+        if (is_subclass_of($class, Singleton::class)) {
+            $instance = self::resolve($class);
+            self::$instances[$class] = $instance;
+            return $instance;
+        }
+
+        // Sinon, on résout et retourne une nouvelle instance (non singleton)
+        return self::resolve($class);
+    }
+
+    private static function resolve(string $class)
+    {
+        $reflector = new \ReflectionClass($class);
+
+        // Pas de constructeur → on instancie directement
+        if (!$reflector->getConstructor()) {
+            return new $class();
+        }
+
+        // Injection des dépendances par constructeur
+        $dependencies = [];
+        foreach ($reflector->getConstructor()->getParameters() as $param) {
+            $type = $param->getType()?->getName();
+            if ($type === null) {
+                throw new \Exception("Dépendance non typée : {$param->getName()} dans {$class}");
+            }
+            $dependencies[] = self::get($type); // Appel récursif
+        }
+
+        return $reflector->newInstanceArgs($dependencies);
     }
 }

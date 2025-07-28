@@ -9,7 +9,7 @@ class DataBase extends Singleton
 {
   private $connection;
 
-  protected function __construct()
+  public function __construct()
   {
     $host = DB_HOST;
     $port = DB_PORT;
@@ -29,7 +29,6 @@ class DataBase extends Singleton
           PDO::ATTR_EMULATE_PREPARES => true
         ]
       );
-    
     } catch (PDOException $e) {
       die("Erreur de connexion à la base de données : " . $e->getMessage());
     }

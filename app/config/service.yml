@@ -21,3 +21,4 @@ entity:
   compte: src\entity\Compte
   transaction: src\repository\TransactionRepository
   profil: src\entity\Profil
+  

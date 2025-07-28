@@ -5,23 +5,31 @@ namespace src\controller;
 use app\core\abstract\AbstractController;
 use app\core\App;
 use app\core\FileUpload;
+use app\core\Session;
 use app\core\Validator;
 use src\entity\User;
-
+use src\service\ProfilService;
+use src\service\SecurityService;
+use src\service\SmsService;
 
 class SecurityController extends AbstractController
 {
-  private $securityService;
-  private $profilService;
-  private $smsService;
+  private SecurityService $securityService;
+  private ProfilService $profilService;
+  private SmsService $smsService;
 
-  public function __construct()
-  {
+  public function __construct(
+    SecurityService $securityService,
+    Session $session,
+    ProfilService $profilService,
+    SmsService $smsService
+  ) {
     parent::__construct();
     $this->layout = 'nolayout.html.php';
-    $this->securityService = App::getDependency("securityService");
-    $this->profilService = App::getDependency("profilService");
-    $this->smsService = App::getDependency("smsService");
+    $this->securityService = $securityService;
+    $this->session = $session;
+    $this->profilService = $profilService;
+    $this->smsService = $smsService;
   }
   public function index() {}
   public function create()
@@ -34,6 +42,7 @@ class SecurityController extends AbstractController
   }
   public function login()
   {
+
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
       extract($_POST);
       Validator::resetErreur();
@@ -65,19 +74,18 @@ class SecurityController extends AbstractController
   }
   public function store()
   {
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       extract($_POST);
-      require_once '../app/config/rules.php';
 
+      require_once '../app/config/rules.php';
       Validator::resetErreur();
       Validator::validate($_POST, $rules);
-
       if (!Validator::isValid()) {
         Validator::saveErrorsToSession($this->session);
-        // require_once '../app/config/helpers.php';
-        //   // dd(Validator::getErrors());
+        //  var_dump($_POST);
+        //   die("erreur");
         header("Location: " . WEB_URL . "/signup");
-
         exit;
       }
       $user = App::getDependency("user");
@@ -89,8 +97,7 @@ class SecurityController extends AbstractController
       $user->setCni($cni);
       $user->setProfil($this->profilService->getProfilByLibelle("CLIENT"));
 
-      if (!empty($_FILES['photorecto']['name'])) 
-      {
+      if (!empty($_FILES['photorecto']['name'])) {
         $user->setPhotoRecto(FileUpload::save($_FILES['photorecto']));
       }
 
@@ -98,13 +105,15 @@ class SecurityController extends AbstractController
         $user->setPhotoVerso(FileUpload::save($_FILES['photoverso']));
       }
 
+
+
       $this->securityService->inscrireClient($user);
       $this->smsService->sendSms($_POST['telephone'], 'Votre compte a été créé avec succès !');
       header("Location: " . WEB_URL);
       exit;
     } else {
       var_dump($_POST);
-      die("Invalid request method");  
+      die("Invalid request method");
     }
   }
   public function show() {}

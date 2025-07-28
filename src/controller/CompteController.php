@@ -7,17 +7,19 @@ use app\core\App;
 use app\core\Validator;
 use src\entity\User;
 use src\enums\TypeCompte;
+use src\service\CompteService;
+use src\service\TransactionService;
 
 class CompteController extends AbstractController
 {
 
-  private $compteService;
-  private $transactionService;
-  public function __construct()
+  private CompteService $compteService;
+  private TransactionService $transactionService;
+  public function __construct(CompteService $compteService,TransactionService $transactionService)
   {
     parent::__construct();
-    $this->compteService = App::getDependency("compteService");
-    $this->transactionService = App::getDependency("transactionService");
+    $this->compteService = $compteService;
+    $this->transactionService = $transactionService;
   }
   public function index()
   {
@@ -76,7 +78,7 @@ class CompteController extends AbstractController
         exit;
       }
       $user = $this->session->get("user");
-      $compte = App::getDependency("compte");
+      $compte = App::get(CompteService::class);
       $compte->setNumeroTel($telephone);
       $compte->setSolde($solde);
       $compte->setTypeCompte(TypeCompte::SECONDAIRE);

@@ -10,7 +10,7 @@ use src\enums\TypeCompte;
 
 class UtilisateurRepository extends AbstractRepository
 {
-  protected function __construct()
+  public function __construct()
   {
     parent::__construct();
     $this->table = 'utilisateur';
@@ -19,7 +19,7 @@ class UtilisateurRepository extends AbstractRepository
   public function selectByTelephoenAndPassword(string $telephone): null|User
   {
     $query = "SELECT * FROM $this->table  WHERE telephone = :telephone";
-    $stmt = $this->db->getConnection()->prepare($query);
+    $stmt = $this->db->prepare($query);
     $stmt->execute([
       "telephone" => $telephone,
     ]);
@@ -29,13 +29,13 @@ class UtilisateurRepository extends AbstractRepository
 
 
     public function existByTelephone(string $telephone): bool {
-      $stmt = $this->db->getConnection()->prepare("SELECT id FROM utilisateur WHERE telephone = :telephone");
+      $stmt = $this->db->prepare("SELECT id FROM utilisateur WHERE telephone = :telephone");
       $stmt->execute(['telephone' => $telephone]);
       return $stmt->fetch() !== false;
   }
 
   public function existByCni(string $cni): bool {
-      $stmt = $this->db->getConnection()->prepare("SELECT id FROM utilisateur WHERE cni = :cni");
+      $stmt = $this->db->prepare("SELECT id FROM utilisateur WHERE cni = :cni");
       $stmt->execute(['cni' => $cni]);
       return $stmt->fetch() !== false;
   }
@@ -45,9 +45,9 @@ class UtilisateurRepository extends AbstractRepository
   public function inscriptionTransaction(User $user): void
   {
     try {
-      $this->db->getConnection()->beginTransaction();
+      $this->db->beginTransaction();
 
-      $stmtUser = $this->db->getConnection()->prepare("
+      $stmtUser = $this->db->prepare("
                 INSERT INTO $this->table (nom, prenom, telephone, password, adresse, cni, photoRecto, photoVerso, profil_id)
                 VALUES (:nom, :prenom, :telephone, :password, :adresse, :cni, :photoRecto, :photoVerso, :profil_id)
             ");
@@ -65,11 +65,11 @@ class UtilisateurRepository extends AbstractRepository
         
       ]);
 
-      $userId = (int) $this->db->getConnection()->lastInsertId();
+      $userId = (int) $this->db->lastInsertId();
       $user->setId($userId);
 
       // Insertion compte principal
-      $stmtCompte = $this->db->getConnection()->prepare("
+      $stmtCompte = $this->db->prepare("
                 INSERT INTO compte (solde, numero_tel, typecompte, utilisateur_id)
                 VALUES (:solde, :numero_tel, :typecompte, :utilisateur_id)
             ");
@@ -81,9 +81,9 @@ class UtilisateurRepository extends AbstractRepository
         'utilisateur_id' => $userId
       ]);
 
-      $this->db->getConnection()->commit();
+      $this->db->commit();
     } catch (\PDOException $e) {
-      $this->db->getConnection()->rollBack();
+      $this->db->rollBack();
       throw new \Exception("Erreur lors de l'inscription : " . $e->getMessage());
     }
   }

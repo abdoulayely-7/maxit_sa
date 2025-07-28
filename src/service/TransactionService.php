@@ -2,14 +2,15 @@
 namespace src\service;
 use app\core\App;
 use app\core\Singleton;
+use src\repository\TransactionRepository;
 
 class TransactionService extends Singleton
 {
-  private $transactionRepository;
+  private TransactionRepository $transactionRepository;
 
-  public function __construct()
+  public function __construct(TransactionRepository $transactionRepository)
   {
-    $this->transactionRepository = App::getDependency("transactionRepository");
+    $this->transactionRepository = $transactionRepository;
   }
 
   public function getLastTenTransactionsByUserId(int $userId): ?array

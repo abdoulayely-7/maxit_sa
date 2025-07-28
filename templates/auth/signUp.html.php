@@ -62,6 +62,7 @@
                             <input
                                 type="text"
                                 name="prenom"
+                                id="prenom"
                                 placeholder="Entrez votre prénom"
                                 class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
                             <?php if (!empty($errors['prenom'])): ?>
@@ -75,6 +76,7 @@
                             <input
                                 type="text"
                                 name="nom"
+                                id="nom"
                                 placeholder="Entrez votre nom"
                                 class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
                             <?php if (!empty($errors['nom'])): ?>
@@ -91,6 +93,7 @@
                         <input
                             type="tel"
                             name="telephone"
+                            id="telephone"
                             placeholder="Entrez votre numéro de téléphone"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
                         <?php if (!empty($errors['telephone'])): ?>
@@ -120,6 +123,7 @@
                         <input
                             type="text"
                             name="adresse"
+                            id="adresse"
                             placeholder="Entrez votre adresse"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
                         <?php if (!empty($errors['adresse'])): ?>
@@ -135,6 +139,7 @@
                         <input
                             type="text"
                             name="cni"
+                            id="cni"
                             placeholder="Numéro nationale d'identité"
                             class="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-gray-50" />
                         <?php if (!empty($errors['cni'])): ?>
@@ -232,3 +237,39 @@
 </body>
 
 </html>
+
+
+<!-- <script>
+    document.getElementById('searchBtn').addEventListener('click', function () {
+    const cni = document.getElementById('numeroCNI').value.trim();
+
+    document.getElementById('cni-error').classList.add('hidden');
+    document.getElementById('cni-success').classList.add('hidden');
+
+    if (cni !== '') {
+        fetch("https://appdafapi.onrender.com/api/citoyens/${cni}")
+            .then(response => {
+                if (!response.ok) throw new Error("CNI non trouvée");
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.data) {
+                    const citoyen = data.data;
+
+                    document.getElementById('prenom').value = citoyen.prenom || '';
+                    document.getElementById('nom').value = citoyen.nom || '';
+                    document.getElementById('adresse').value = citoyen.adresse || '';
+                    document.getElementById('telephone').value = citoyen.telephone || '';
+
+                    document.getElementById('cni-success').classList.remove('hidden');
+                } else {
+                    document.getElementById('cni-error').classList.remove('hidden');
+                }
+            })
+            .catch(error => {
+                console.error("Erreur :", error);
+                document.getElementById('cni-error').classList.remove('hidden');
+            });
+    }
+});
+</script> -->
